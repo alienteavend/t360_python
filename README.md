@@ -60,7 +60,7 @@ docker run -p 8887:8887 t360_python/student
 ## Jupyter belepes
 Futtatas utan kapunk egy URL-t, amire kattintsunk ra, vagy navigaljunk ide a bongeszoben, pl:
 ```
-http://127.0.0.1:8888/?token=39a02779b8a0d36b17c1a24ccbef179c560551b93a0ae446
+http://127.0.0.1:8887/?token=39a02779b8a0d36b17c1a24ccbef179c560551b93a0ae446
 ```
 
 Innentol pedig lehet feladatot megoldani

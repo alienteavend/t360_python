@@ -1,0 +1,29 @@
+FROM jupyter/base-notebook
+
+# Install nbgrader
+RUN pip3 install nbgrader nose
+RUN jupyter nbextension install --sys-prefix --py nbgrader --overwrite
+RUN jupyter nbextension enable --sys-prefix --py nbgrader
+RUN jupyter serverextension enable --sys-prefix --py nbgrader
+
+# Install contrib nbextensions
+RUN pip install jupyter_contrib_nbextensions
+RUN jupyter contrib nbextension install --user
+RUN jupyter nbextension enable init_cell/main
+
+USER jovyan
+
+RUN ipython profile create
+
+COPY assets/ipython_config.py /home/jovyan/.ipython/profile_default/
+COPY assets/training360_testloader.py /home/jovyan/.ipython/extensions/
+
+WORKDIR /assignments
+
+COPY ./notebooks/release /assignments
+
+COPY assets/trust_notebooks.sh /tmp
+RUN /tmp/trust_notebooks.sh
+
+
+ENTRYPOINT ["tini", "--", "jupyter", "notebook", "--port", "8887"]

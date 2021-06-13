@@ -1,0 +1,25 @@
+version: "3.0"
+    
+services:
+    teacher:
+        image: training_360/teacher:latest
+        container_name: training360_teacher
+        build:
+            context: .
+            dockerfile: teacher_dockerfile
+        restart: always
+        ports:
+            - 8888:8888
+        volumes:
+            - ./notebooks:/assignments/
+
+    student:
+        image: training_360/student:latest
+        container_name: training360_student
+        build:
+            context: .
+            dockerfile: student_dockerfile
+        restart: always
+        ports:
+            - 8887:8887
+        

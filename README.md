@@ -16,12 +16,17 @@ Erdemes atnezni az `nbgrader` es az `init_cell` hasznalatat ha valaki feladatoka
 Az nbgrader alapelve az, hogy a tanar megcsinalja a notebookot (specialis utasitasokkal lehet teszteket letrehozni, ezeket osztalyozni, stb). Mi itt csak a munkafuzetek automatikus teszteleset akarjuk (tanulo oldalon), az ide/oda kuldozgetest, kezi osztalyozast nem.
 
 # Teacher notebook kornyezet
-Az eredeti feladatok, megoldasok, tesztek kontenere. Ebbol kell generalni azokat a notebookokat amiket majd a tanulok kapnak meg.
+Az eredeti feladatok, megoldasok, tesztek kontenere. Ebbol kell generalni azokat a notebookokat amiket majd a tanulok kapnak meg. Ajanlott a `docker-compose` hasznalata.
+
+## Docker-compose
+```
+docker-compose build teacher
+docker-compose up -d teacher
+```
 
 ## Docker build & run
 ```
-cd teacher
-docker build -t t360_python/teacher .
+docker build -t t360_python/teacher -f teacher_dockerfile .
 docker run -p 8888:8888 -v $(pwd):/assignments/ t360_python/teacher
 ```
 
@@ -55,13 +60,17 @@ Automatikusan letrejonnek az "assignment"-ek. A generate ikonjara kattintva pedi
 
 
 # Tanulo notebook kornyezet
-Ez a kornyezet szolgal a tanulo feladatmegoldasara.
+Ez a kornyezet szolgal a tanulo feladatmegoldasara. Ajanlott a `docker-compose` hasznalata. A tanar formgraderben generalt fajlokat masoljuk bele a kontenerbe az egyszeruseg kedveert, igy verziozhato maga a kontener a feladatokkal egyutt.
+
+## Docker-compose
+```
+docker-compose build student
+docker-compose up -d student
+```
 
 ## Docker build & run
-Mozgassuk at tanar notebook altal generalt `release` mappat a `student` mappaba (`student/release/`).
 ```
-cd student
-docker build -t t360_python/student .
+docker build -t t360_python/student -f student_dockerfile .
 docker run -p 8887:8887 t360_python/student
 ```
 

@@ -1,0 +1,5 @@
+Termékek|Mennyiség|Egységár|Összérték
+alma|50|300|15000
+banán|40|400|16000
+citrom|30|500|15000
+dió|20|2500|50000
